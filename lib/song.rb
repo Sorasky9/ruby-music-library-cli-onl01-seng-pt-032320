@@ -4,7 +4,7 @@ class Song
   attr_accessor :name, :artist, :genre
 
 @@all = []
-def initialize(name, artist = nil, genre = nil)
+def initialize(name, artist = nil, genre = nil) #<-- The artist and genre = nil is setting an optional argument.
 @name = name
 if artist != nil
   self.artist = artist
@@ -22,14 +22,18 @@ end
 def self.all
   @@all
 end
+#^This method above is calling the instances inside the @@all class variable
+
 
 def self.destroy_all
 @@all.clear
 end
+#^ This methid is deleting/clearing @@all class variable
 
 def save
 @@all << self #here, just like the initialize method above, is the same way we  save
 end
+#^ This method is saving the empty array of the class variable @@all.
 
 def self.create(name)
 self.new(name).save #We create a new Song class and save it
@@ -41,4 +45,15 @@ def artist=(artist) #instance method with an attribute (artist)
 artist.add_song(self) #when we call self on an instance method it refers to the current instance of that class.
 end
 
+def genre=(genre)
+@genre = genre
+genre.songs << self unless genre.songs.include? self
+end
+
+def self.find_by_name(name)
+all.index(2)
+
+#binding.pry
+
+end
 end
